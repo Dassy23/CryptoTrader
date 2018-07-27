@@ -23,14 +23,16 @@ class Strategy {
 
   async positionOpened({ price, time, amount, id }) {
     const trade = new Trade({ price, time, amount })
+
     const position = new Position({ trade, id })
     this.positions[id] = position
+    debugger
   }
 
   async positionClosed({ price, time, amount, id }) {
     const trade = new Trade({ price, time, amount })
     const position = this.positions[id]
-
+    debugger
     if (position) {
       position.close({ trade })
     }

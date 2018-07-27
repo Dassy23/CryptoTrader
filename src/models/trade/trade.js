@@ -1,8 +1,8 @@
 class Trade {
-  constructor({ price, time, size }) {
+  constructor({ price, time, amount }) {
     this.price = price,
     this.time = time,
-    this.size = size
+    this.size = amount
   }
 }
 

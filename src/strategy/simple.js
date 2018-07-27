@@ -1,6 +1,6 @@
 const Strategy = require('../strategy/strategy.js')
 class SimpleStrategy extends Strategy {
-  async run({ sticks, time }) {
+  async run({ sticks, time, funds }) {
     const len = sticks.length
     if (len < 20) {return}
 
@@ -12,7 +12,7 @@ class SimpleStrategy extends Strategy {
 
     if (open.length == 0) {
       if (last < penu) {
-        this.onBuySignal({ price, time })
+        this.onBuySignal({ price, time, funds })
       }
     } else {
       if ( last > penu) {

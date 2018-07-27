@@ -12,7 +12,12 @@ class Candlestick {
   }
 
   average() {
-    return (this.close + this.high + this.low) / 3
-  }
+      const numbers = [this.close,this.high,this.low];
+      const count = numbers.length;
+      const reducer = (adder, value) => (adder + value);
+      const average = numbers.map(x => x/count).reduce(reducer);
+      return average
+   }
+
 }
 module.exports = exports = Candlestick

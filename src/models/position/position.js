@@ -1,10 +1,12 @@
 const colors = require('colors/safe')
+dateFormat = require('dateformat')
 
 class Position {
   constructor ({ trade, id }) {
     this.state = 'open'
     this.enter = trade
     this.id = id
+
   }
 
   close({ trade }) {
@@ -13,8 +15,8 @@ class Position {
   }
 
   print(){
-    const enter = `Enter | ${this.enter.price} | ${this.enter.time}`
-    const exit = this.exit ?  `Exit: | ${this.exit.price} | ${this.exit.time}` :
+    const enter = `Enter | ${this.enter.price} @ ${this.enter.size}: ${(this.enter.price * this.enter.size).toFixed(4)} | ${dateFormat(this.enter.time, "isoDateTime")}`
+    const exit = this.exit ?  `Exit: | ${this.exit.price} @ ${this.enter.size}: ${(this.exit.price * this.enter.size).toFixed(4)} | ${dateFormat(this.exit.time, "isoDateTime")}` :
       ''
     var profit = ''
     if (this.state ==='closed'){
@@ -27,11 +29,13 @@ class Position {
   }
 
   profit() {
-    const fee = 0.0025
+    const fee = 0.005
     const entrance = (this.enter.price) * (1 + fee)
     if (this.exit) {
       const exit = (this.exit.price) * (1 - fee)
-      return exit - entrance
+      const size = this.enter.size
+      const delta = exit - entrance
+      return (exit - entrance) * this.enter.size
     } else {
       return 0
     }
