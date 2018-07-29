@@ -15,8 +15,8 @@ class Position {
   }
 
   print(){
-    const enter = `Enter | ${this.enter.price} @ ${this.enter.size}: ${(this.enter.price * this.enter.size).toFixed(4)} | ${dateFormat(this.enter.time, "isoDateTime")}`
-    const exit = this.exit ?  `Exit: | ${this.exit.price} @ ${this.enter.size}: ${(this.exit.price * this.enter.size).toFixed(4)} | ${dateFormat(this.exit.time, "isoDateTime")}` :
+    const enter = `Enter | ${this.enter.price} x ${this.enter.size}: ${(this.enter.price * this.enter.size).toFixed(4)} | ${dateFormat(this.enter.time, "isoDateTime")}`
+    const exit = this.exit ?  `Exit: | ${this.exit.price} x ${this.enter.size}: ${(this.exit.price * this.enter.size).toFixed(4)} | ${dateFormat(this.exit.time, "isoDateTime")}` :
       ''
     var profit = ''
     if (this.state ==='closed'){
@@ -25,7 +25,7 @@ class Position {
       profit = `Profit: ${colored}`
     }
 
-    console.log(`${enter} - ${exit} - ${profit}`)
+    console.log(`${enter} - ${exit} \n${profit}`)
   }
 
   profit() {

@@ -42,18 +42,18 @@ class HistoricalService {
   await timeout(200)
   const next = await this.performInterval(intervals.slice(1))
   return result.concat(next)
-}
+  }
 
-async performRequest({ start, end }) {
-
-  const results = await this.client.candles({
-    symbol: this.symbol,
-    startTime: start ,
-    endTime: end,
-    interval: this.interval.toString()+'m'
-  })
-  return results
-}
+  async performRequest({ start, end }) {
+    const newInterval = await this.convertInterval(this.interval)
+    const results = await this.client.candles({
+        symbol: this.symbol,
+        startTime: start ,
+        endTime: end,
+        interval: newInterval
+      })
+    return results
+  }
 
   createRequests() {
     const max = 500
@@ -70,6 +70,22 @@ async performRequest({ start, end }) {
     })
 
     return intervals
+  }
+
+  // convert to string for binance api
+  async convertInterval(interval) {
+    switch (interval) {
+      case 60:
+        return '1h'
+      case 360:
+        return '6h'
+      case 1440:
+        return '1d'
+      case 10080:
+        return '1w'
+      default:
+        return interval.toString()+'m'
+    }
   }
 }
 
