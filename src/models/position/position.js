@@ -6,7 +6,6 @@ class Position {
     this.state = 'open'
     this.enter = trade
     this.id = id
-
   }
 
   close({ trade }) {

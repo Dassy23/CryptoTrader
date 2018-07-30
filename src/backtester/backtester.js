@@ -43,10 +43,14 @@ const colors = require('colors/safe')
        const total = positions.reduce((r, p) => {
          return r + p.profit()
        }, 0)
+       const firstTrade = positions[0].enter
+       const lastTrade = positions[positions.length -1].exit? positions[positions.length -1].exit : positions[positions.length -1].enter
 
        const prof = `${total}`
        const colored = total > 0 ? colors.green(prof) : colors.red(prof)
-       console.log(`Total: ${colored}`)
+       const totalBM = (lastTrade.price - firstTrade.price) * this.funds
+       const benchmark = totalBM > 0 ? colors.green(totalBM) : colors.red(totalBM)
+       console.log(`Total: ${colored} - Buy & Hold Benchmark: ${benchmark}`)
 
      } catch (error) {
        console.log(error)
